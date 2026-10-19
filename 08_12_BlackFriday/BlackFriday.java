@@ -29,5 +29,7 @@ public class BlackFriday {
             }
         }
         System.out.printf("Final price: %.2f €" ,compra * (1 - descompte));
+
+        sc.close();
     }
 }
