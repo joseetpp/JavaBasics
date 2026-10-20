@@ -1,0 +1,79 @@
+import java.util.Locale;
+import java.util.Scanner;
+
+public class NutritionCalculator {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        // Utilitzem Locale.US per assegurar-nos que els decimals es llegeixen i s'imprimeixen amb un punt (.)
+        scanner.useLocale(Locale.US);
+
+        System.out.println("Nutrition calculator:");
+        System.out.println("1. Calculate calories");
+        System.out.println("2. Calories per serving");
+        System.out.println("3. Daily calories");
+        System.out.println("Choose an option:");
+
+        int option = scanner.nextInt();
+
+        switch (option) {
+            case 1:
+                System.out.println("Enter protein (g):");
+                double protein = scanner.nextDouble();
+                
+                System.out.println("Enter carbohydrates (g):");
+                double carbs = scanner.nextDouble();
+                
+                System.out.println("Enter fat (g):");
+                double fat = scanner.nextDouble();
+                
+                double totalCalories = (protein * 4) + (carbs * 4) + (fat * 9);
+                System.out.printf(Locale.US, "Total calories: %.2f kcal\n", totalCalories);
+                break;
+
+            case 2:
+                System.out.println("Enter calories per 100 g:");
+                double caloriesPer100 = scanner.nextDouble();
+                
+                System.out.println("Enter serving size (g):");
+                double servingSize = scanner.nextDouble();
+                
+                double caloriesPerServing = (caloriesPer100 / 100) * servingSize;
+                System.out.printf(Locale.US, "Calories per serving: %.2f kcal\n", caloriesPerServing);
+                break;
+
+            case 3:
+                System.out.println("Enter age (years):");
+                int age = scanner.nextInt();
+                
+                System.out.println("Enter height (cm):");
+                double height = scanner.nextDouble();
+                
+                System.out.println("Enter weight (kg):");
+                double weight = scanner.nextDouble();
+                
+                System.out.println("Enter sex (M/F):");
+                char sex = scanner.next().toUpperCase().charAt(0);
+                
+                System.out.println("Enter activity factor (1.2 to 1.9):");
+                double activityFactor = scanner.nextDouble();
+
+                double bmr = 0; // Taxa Metabòlica Basal (BMR)
+
+                if (sex == 'M') {
+                    bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
+                } else if (sex == 'F') {
+                    bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+                }
+
+                double dailyCalories = bmr * activityFactor;
+                System.out.printf(Locale.US, "Daily calories: %.2f kcal\n", dailyCalories);
+                break;
+
+            default:
+                break;
+        }
+
+        scanner.close();
+    }
+}
